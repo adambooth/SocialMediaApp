@@ -3,6 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { requireProfile } from "@/utils/requireProfile";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import "./editProfile.css";
 
 export default async function EditProfilePage() {
   await requireProfile();
@@ -13,11 +14,12 @@ export default async function EditProfilePage() {
 
   return (
     <>
-      <div className="edit-post-container">
-        <div className="form-wrapper">
+      <div className="edit-post-containers">
+        <div className="form-wrappers">
           <h1>Edit Post</h1>
 
           <form
+            className="form-containers"
             action={async (formData) => {
               "use server";
 
@@ -38,10 +40,18 @@ export default async function EditProfilePage() {
             }}
           >
             <label>Name :</label>
-            <input type="text" name="name" required />
+            <input
+              type="text"
+              name="name"
+              required
+              pattern="[A-Za-z]+"
+              title="Username must contain only letters"
+              placeholder="Letters Only"
+              className="edit-post-input"
+            />
 
-            <label>content : </label>
-            <textarea name="content" required />
+            <label>Content : </label>
+            <textarea name="content" required maxlength="50" />
 
             <button className="submit-button" type="submit">
               Save

@@ -2,6 +2,7 @@ import { db } from "@/utils/.dbConnection";
 import { notFound } from "next/navigation";
 import "./userIdPage.css";
 import Link from "next/link";
+import { requireProfile } from "@/utils/requireProfile";
 
 export default async function UserPage({ params }) {
   await requireProfile();
@@ -39,8 +40,8 @@ export default async function UserPage({ params }) {
           <p>No posts yet.</p>
         ) : (
           posts.map((post) => (
-            <div className="specific-user-post">
-              <div key={post.id}>
+            <div key={post.id} className="specific-user-post">
+              <div>
                 <p>{post.content}</p>
               </div>
               <div className="view-post-container">

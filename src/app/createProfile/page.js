@@ -47,8 +47,10 @@ export default async function CreateProfilePage() {
               <input
                 id="username"
                 name="username"
-                placeholder="Your username"
+                placeholder="Letters Only"
                 required
+                pattern="[A-Za-z]+"
+                title="Username must contain only letters"
               />
             </div>
 
@@ -59,6 +61,7 @@ export default async function CreateProfilePage() {
                 name="bio"
                 placeholder="Tell us about yourself"
                 required
+                maxlength="50"
               />
             </div>
 

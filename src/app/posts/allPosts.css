@@ -14,11 +14,15 @@
 }
 
 .all--posts-container {
-  width: 80%;
+  width: 70%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  height: 600px;
+  overflow-y: auto;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 .post-template {

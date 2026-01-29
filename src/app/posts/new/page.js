@@ -3,6 +3,7 @@ import { db } from "@/utils/.dbConnection";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { requireProfile } from "@/utils/requireProfile";
+import "./createPostPage.css";
 
 export default async function newPostPage() {
   await requireProfile();
@@ -25,23 +26,23 @@ export default async function newPostPage() {
 
   return (
     <div className="main-form-container">
+      <div className="form-header">
+        <h2>Create A Post</h2>
+      </div>
       <div className="form-wrapper">
-        <div className="form-header">
-          <h2>Create A Post</h2>
-        </div>
-
         <form action={handleSubmit} className="form-content">
           <div className="form-group">
-            <label htmlFor="content">content:</label>
-            <input
+            <label htmlFor="content">Content:</label>
+            <textarea
               id="content"
               name="content"
               placeholder="Your content"
               required
+              maxlength="50"
             />
           </div>
 
-          <button type="submit" className="submit-button">
+          <button type="submit" className="submit-buttonss">
             Submit
           </button>
         </form>
