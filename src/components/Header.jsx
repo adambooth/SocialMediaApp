@@ -22,9 +22,9 @@ export default function Header() {
           </SignedOut>
           <SignedIn>
             <Link href={"/profile"}>
-              <button>Profile</button>
+              <button className="profile-button">Profile</button>
             </Link>
-            <UserButton className="auth-button" />
+            <UserButton className="user-auth-button" />
           </SignedIn>
         </div>
       </div>

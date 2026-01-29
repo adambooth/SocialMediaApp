@@ -2,6 +2,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  text-decoration: none;
 }
 
 .main-body {
@@ -16,12 +17,34 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: lightblue;
+  background-color: rgb(19, 156, 202);
+}
+
+.auth-buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
 
 .auth-button {
   margin: 20px;
   padding: 10px;
+  border: none;
+}
+
+.profile-button {
+  margin: 20px;
+  padding: 10px;
+  background-color: lightblue;
+  border-radius: 20px;
+  border: none;
+}
+
+.cl-avatarBox {
+  width: 40px;
+  height: 40px;
 }
 
 .profile-page {

@@ -1,0 +1,39 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+  width: 90%;
+  margin: 20px auto;
+  background-color: rgb(19, 156, 202);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.profile-title {
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 30px;
+}
+
+.profile-name {
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 20px;
+}
+
+.profile-bio {
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 20px;
+}
+
+.edit-profile-btn {
+  padding: 10px;
+  background-color: lightblue;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 30px;
+  border: none;
+}

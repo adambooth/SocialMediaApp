@@ -1,5 +1,6 @@
 import { db } from "@/utils/.dbConnection";
 import { auth } from "@clerk/nextjs/server";
+import "./profile.css";
 
 export default async function profilePage() {
   const { userId } = await auth();
@@ -15,9 +16,12 @@ export default async function profilePage() {
 
   return (
     <>
-      <h1>Profile Page</h1>
-      <p>Name : {post.username}</p>
-      <p>Bio : {post.bio}</p>
+      <div className="profile-container">
+        <h1 className="profile-title">Profile Page</h1>
+        <p className="profile-name">Name : {post.username}</p>
+        <p className="profile-bio">Bio : {post.bio}</p>
+        <button className="edit-profile-btn">Edit Profile</button>
+      </div>
     </>
   );
 }
