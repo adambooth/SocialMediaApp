@@ -53,3 +53,11 @@ textarea {
   border: none;
   margin: 0.5rem;
 }
+
+label,
+textarea,
+input {
+  padding: 20px;
+  border-radius: 20px;
+  border: none;
+}
