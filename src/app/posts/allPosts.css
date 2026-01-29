@@ -1,5 +1,5 @@
 .posts-container {
-  background-color: lightblue;
+  background-color: rgb(19, 156, 202);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,7 +22,7 @@
 }
 
 .post-template {
-  background-color: rgb(19, 156, 202);
+  background-color: lightblue;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

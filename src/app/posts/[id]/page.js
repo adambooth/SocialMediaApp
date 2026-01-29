@@ -1,4 +1,5 @@
 import { db } from "@/utils/.dbConnection";
+import "./postId.css";
 
 export default async function specificPostPage({ params }) {
   const { id } = await params;
@@ -20,14 +21,46 @@ export default async function specificPostPage({ params }) {
 
   return (
     <>
-      <h1>Post Details</h1>
-      <div className="main-post-container">
-        <div className="post-details-container">
-          {" "}
-          <div className="specific-post-content">
-            <h1>Name : {user.username}</h1>
-            <h1 className="post-desc">Description : {post.content}</h1>
-            <div className="specific-comments-container"></div>
+      <div className="specific-post-container">
+        <h1 className="specific-post-title">Post Details</h1>
+        <div className="main-post-container">
+          <div className="post-details-container">
+            {" "}
+            <div className="specific-post-content">
+              <h1>Name : {user.username}</h1>
+              <h1 className="post-desc">Description : {post.content}</h1>
+              <div className="specific-comments-container"></div>
+            </div>
+          </div>
+        </div>
+        <div className="comments-conatiner">
+          <div className="comment-template">
+            <p>Comment</p>
+            <p>Comment</p>
+            <p>Comment</p>
+            <p>Comment</p>
+            <p>Comment</p>
+          </div>
+          <div className="comment-template">
+            <p>Comment</p>
+            <p>Comment</p>
+            <p>Comment</p>
+            <p>Comment</p>
+            <p>Comment</p>
+          </div>
+          <div className="comment-template">
+            <p>Comment</p>
+            <p>Comment</p>
+            <p>Comment</p>
+            <p>Comment</p>
+            <p>Comment</p>
+          </div>
+          <div className="comment-template">
+            <p>Comment</p>
+            <p>Comment</p>
+            <p>Comment</p>
+            <p>Comment</p>
+            <p>Comment</p>
           </div>
         </div>
       </div>

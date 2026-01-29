@@ -1,5 +1,7 @@
 import { db } from "@/utils/.dbConnection";
 import { notFound } from "next/navigation";
+import "./userIdPage.css";
+import Link from "next/link";
 
 export default async function UserPage({ params }) {
   const { id: userId } = await params;
@@ -24,19 +26,30 @@ export default async function UserPage({ params }) {
   );
 
   return (
-    <div>
-      <h1>{userId}'s Profile</h1>
-      <h1>Bio : {bio[0].bio}</h1>
-      <h2>Posts</h2>
-      {posts.length === 0 ? (
-        <p>No posts yet.</p>
-      ) : (
-        posts.map((post) => (
-          <div key={post.id}>
-            <p>{post.content}</p>
-          </div>
-        ))
-      )}
+    <div className="specific-user-container">
+      <h1 className="specific-user-profile-name">{userId}'s Profile</h1>
+      <div className="specific-user-details">
+        <h1>Bio : {bio[0].bio}</h1>
+      </div>
+      <h2 className="specific-user-profile-name">Posts</h2>
+      <div className="specific-user-posts">
+        {posts.length === 0 ? (
+          <p>No posts yet.</p>
+        ) : (
+          posts.map((post) => (
+            <div className="specific-user-post">
+              <div key={post.id}>
+                <p>{post.content}</p>
+              </div>
+              <div className="view-post-container">
+                <Link href={`/posts/${post.id}`}>
+                  <button className="view-post-btn">View Post</button>
+                </Link>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }
