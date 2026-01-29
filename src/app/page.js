@@ -1,7 +1,16 @@
-export default function App() {
-  return (
-    <>
-      <h1>Social Media App</h1>
-    </>
-  );
+import { SignInButton, SignUpButton } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
+
+export default async function App() {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return (
+      <div className="profile-page">
+        <h1>Create An Account To Access Everything!</h1>
+        <SignInButton className="auth-button" />
+        <SignUpButton className="auth-button" />
+      </div>
+    );
+  }
 }
