@@ -180,3 +180,8 @@ li {
   text-align: center;
   color: rgb(119, 4, 4);
 }
+.like-btn {
+  margin: 20px;
+  background-color: transparent;
+  border: none;
+}

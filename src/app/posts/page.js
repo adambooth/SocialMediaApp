@@ -3,9 +3,11 @@ import Link from "next/link";
 import "./allPosts.css";
 import { requireProfile } from "@/utils/requireProfile";
 import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 
 export default async function allPostsPage() {
   await requireProfile();
+  const { userId } = await auth();
 
   const { rows: posts } = await db.query(`SELECT * FROM week9posts`);
 

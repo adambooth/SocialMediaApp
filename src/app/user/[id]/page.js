@@ -41,11 +41,6 @@ export default async function UserPage({ params }) {
     [userId, profileUser[0].clerk_user_id],
   );
 
-  const { rows: followerAmount } = await db.query(
-    "SELECT follower_count FROM week9users WHERE username = $1",
-    [profileId],
-  );
-
   async function handleFollow() {
     "use server";
 
