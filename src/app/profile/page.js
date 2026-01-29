@@ -2,6 +2,7 @@ import { db } from "@/utils/.dbConnection";
 import { auth } from "@clerk/nextjs/server";
 import "./profile.css";
 import { requireProfile } from "@/utils/requireProfile";
+import Link from "next/link";
 
 export default async function profilePage() {
   await requireProfile();
@@ -23,7 +24,9 @@ export default async function profilePage() {
         <h1 className="profile-title">Profile Page</h1>
         <p className="profile-name">Name : {post.username}</p>
         <p className="profile-bio">Bio : {post.bio}</p>
-        <button className="edit-profile-btn">Edit Profile</button>
+        <Link href={`/profile/edit`}>
+          <button className="edit-profile-btn">Edit Profile</button>
+        </Link>
       </div>
     </>
   );
