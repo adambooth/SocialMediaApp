@@ -2,8 +2,11 @@ import { auth } from "@clerk/nextjs/server";
 import { db } from "@/utils/.dbConnection";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { requireProfile } from "@/utils/requireProfile";
 
 export default async function newPostPage() {
+  await requireProfile();
+
   const { userId } = await auth();
   async function handleSubmit(formData) {
     "use server";

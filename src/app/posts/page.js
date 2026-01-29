@@ -1,9 +1,12 @@
 import { db } from "@/utils/.dbConnection";
 import Link from "next/link";
 import "./allPosts.css";
+import { requireProfile } from "@/utils/requireProfile";
 
 export default async function allPostsPage() {
-  const { rows } = await db.query(`SELECT * FROM week9posts`);
+  await requireProfile();
+
+  const { rows: posts } = await db.query(`SELECT * FROM week9posts`);
 
   const { rows: userRows } = await db.query(
     `SELECT clerk_user_id, username FROM week9users`,
@@ -14,25 +17,23 @@ export default async function allPostsPage() {
     userMap[user.clerk_user_id] = user.username;
   });
 
-  console.log(userMap);
-
   return (
     <>
       <div className="posts-container">
         <h1 className="all-posts-title">Posts Page</h1>
         <div className="all--posts-container">
-          {rows.map((posts) => {
-            const username = userMap[posts.clerk_user_id];
+          {posts.map((post) => {
+            const username = userMap[post.clerk_user_id] || "Unknown";
             return (
-              <div key={posts.id} className="post-template">
+              <div key={post.id} className="post-template">
                 <div className="post-details-container">
                   <Link href={`/user/${username}`}>
                     <p className="post-creator">Creator: {username}</p>
                   </Link>
-                  <p className="post-desc">Description: {posts.content}</p>
+                  <p className="post-desc">Description: {post.content}</p>
                 </div>
                 <div className="view-post-container">
-                  <Link href={`/posts/${posts.id}`}>
+                  <Link href={`/posts/${post.id}`}>
                     <button className="view-post-btn">View Post</button>
                   </Link>
                 </div>
@@ -41,6 +42,7 @@ export default async function allPostsPage() {
           })}
         </div>
       </div>
+
       <div className="create-a-post-conatiner">
         <h1 className="all-posts-title">Create A Post!</h1>
         <ul>

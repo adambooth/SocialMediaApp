@@ -1,8 +1,11 @@
 import { db } from "@/utils/.dbConnection";
 import { auth } from "@clerk/nextjs/server";
 import "./profile.css";
+import { requireProfile } from "@/utils/requireProfile";
 
 export default async function profilePage() {
+  await requireProfile();
+
   const { userId } = await auth();
 
   const { rows } = await db.query(

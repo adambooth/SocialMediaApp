@@ -1,5 +1,6 @@
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 export default async function App() {
   const { userId } = await auth();
@@ -13,4 +14,6 @@ export default async function App() {
       </div>
     );
   }
+
+  redirect("/profile");
 }

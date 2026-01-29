@@ -1,7 +1,10 @@
 import { db } from "@/utils/.dbConnection";
 import "./postId.css";
+import { requireProfile } from "@/utils/requireProfile";
 
 export default async function specificPostPage({ params }) {
+  await requireProfile();
+
   const { id } = await params;
 
   const { rows } = await db.query(`SELECT * FROM week9posts WHERE id = $1`, [

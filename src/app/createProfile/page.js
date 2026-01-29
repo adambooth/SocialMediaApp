@@ -7,12 +7,14 @@ import "./createProfile.css";
 export default async function CreateProfilePage() {
   const { userId } = await auth();
 
-  const doesUserExitsInDatabase = await db.query(
-    `SELECT id FROM week9users WHERE clerk_user_id = $1`,
+  const result = await db.query(
+    `SELECT bio FROM week9users WHERE clerk_user_id = $1`,
     [userId],
   );
 
-  if (doesUserExitsInDatabase.rows.length > 0) {
+  const userRows = result.rows;
+
+  if (userRows.length > 0 && userRows[0].bio) {
     redirect("/posts");
   }
 

@@ -4,6 +4,8 @@ import "./userIdPage.css";
 import Link from "next/link";
 
 export default async function UserPage({ params }) {
+  await requireProfile();
+
   const { id: userId } = await params;
 
   const { rows: users } = await db.query(

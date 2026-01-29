@@ -18,5 +18,6 @@ CSS
 
 Things ive learnt:
 Ive improved my skills working across multiple tables.
+I learnt how to create a requireProfile component.
 
 Requested Feedback:
