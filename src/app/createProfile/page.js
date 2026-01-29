@@ -61,7 +61,7 @@ export default async function CreateProfilePage() {
                 name="bio"
                 placeholder="Tell us about yourself"
                 required
-                maxlength="50"
+                maxLength="50"
               />
             </div>
 

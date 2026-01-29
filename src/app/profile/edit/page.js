@@ -51,7 +51,7 @@ export default async function EditProfilePage() {
             />
 
             <label>Content : </label>
-            <textarea name="content" required maxlength="50" />
+            <textarea name="content" required maxLength="50" />
 
             <button className="submit-button" type="submit">
               Save

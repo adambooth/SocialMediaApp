@@ -38,7 +38,7 @@ export default async function newPostPage() {
               name="content"
               placeholder="Your content"
               required
-              maxlength="50"
+              maxLength="50"
             />
           </div>
 

@@ -41,6 +41,11 @@ export default async function UserPage({ params }) {
     [userId, profileUser[0].clerk_user_id],
   );
 
+  const { rows: followerAmount } = await db.query(
+    "SELECT follower_count FROM week9users WHERE username = $1",
+    [profileId],
+  );
+
   async function handleFollow() {
     "use server";
 
@@ -52,6 +57,11 @@ export default async function UserPage({ params }) {
     await db.query(
       `INSERT INTO week9followers (follower_id, following_id) VALUES ($1, $2)`,
       [userId, profileUser[0].clerk_user_id],
+    );
+
+    await db.query(
+      `UPDATE week9users SET follower_count = follower_count + 1 WHERE clerk_user_id = $1 RETURNING *`,
+      [profileUser[0].clerk_user_id],
     );
 
     console.log("Followed");
@@ -74,6 +84,11 @@ export default async function UserPage({ params }) {
       [userId, profileUser[0].clerk_user_id],
     );
 
+    await db.query(
+      `UPDATE week9users SET follower_count = follower_count - 1 WHERE clerk_user_id = $1 RETURNING *`,
+      [profileUser[0].clerk_user_id],
+    );
+
     console.log("Unfollowed");
     revalidatePath(`/user/${profileId}`);
   }
@@ -83,6 +98,7 @@ export default async function UserPage({ params }) {
       <h1 className="specific-user-profile-name">{profileId}'s Profile</h1>
       <div className="specific-user-details">
         <h1>Bio : {bio[0].bio}</h1>
+        <h2>Followers : {profileUser[0].follower_count}</h2>
         {isOwnProfile ? (
           <br />
         ) : alreadyFollowing ? (
