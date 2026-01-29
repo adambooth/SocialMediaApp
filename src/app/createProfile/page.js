@@ -2,6 +2,7 @@ import { db } from "@/utils/.dbConnection";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { auth } from "@clerk/nextjs/server";
+import "./createProfile.css";
 
 export default async function CreateProfilePage() {
   const { userId } = await auth();
@@ -32,37 +33,38 @@ export default async function CreateProfilePage() {
   }
 
   return (
-    <div className="main-form-container">
-      <div className="form-wrapper">
-        <div className="form-header">
+    <div className="main-form-containers">
+      <div className="form-wrappers">
+        <div className="form-headers">
           <h2>Create Your Profile</h2>
         </div>
+        <div className="form-containers">
+          <form action={handleSubmit} className="form-contents">
+            <div className="form-groups">
+              <label htmlFor="username">Username:</label>
+              <input
+                id="username"
+                name="username"
+                placeholder="Your username"
+                required
+              />
+            </div>
 
-        <form action={handleSubmit} className="form-content">
-          <div className="form-group">
-            <label htmlFor="username">Username:</label>
-            <input
-              id="username"
-              name="username"
-              placeholder="Your username"
-              required
-            />
-          </div>
+            <div className="form-groups">
+              <label htmlFor="bio">Bio:</label>
+              <textarea
+                id="bio"
+                name="bio"
+                placeholder="Tell us about yourself"
+                required
+              />
+            </div>
 
-          <div className="form-group">
-            <label htmlFor="bio">Bio:</label>
-            <textarea
-              id="bio"
-              name="bio"
-              placeholder="Tell us about yourself"
-              required
-            />
-          </div>
-
-          <button type="submit" className="submit-button">
-            Save Profile
-          </button>
-        </form>
+            <button type="submit" className="submit-buttons">
+              Save Profile
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

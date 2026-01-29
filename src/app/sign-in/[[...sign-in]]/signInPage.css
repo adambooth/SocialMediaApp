@@ -1,0 +1,14 @@
+.main-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-button {
+  padding: 10px;
+  background-color: lightblue;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 30px;
+  border: none;
+}

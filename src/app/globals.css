@@ -29,8 +29,11 @@
 }
 
 .auth-button {
-  margin: 20px;
   padding: 10px;
+  background-color: lightblue;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 30px;
   border: none;
 }
 
