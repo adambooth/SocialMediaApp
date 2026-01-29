@@ -24,7 +24,7 @@ export default async function allPostsPage() {
           const username = userMap[posts.clerk_user_id];
           return (
             <div key={posts.id} className="post-template">
-              <Link href={`/user/${posts.user_id}`}>
+              <Link href={`/user/${username}`}>
                 <p className="post-creator post-content">Creator: {username}</p>
               </Link>
               <p className="post-description post-content">
