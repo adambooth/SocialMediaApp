@@ -2,11 +2,16 @@ import { db } from "@/utils/.dbConnection";
 import Link from "next/link";
 import "./allPosts.css";
 import { requireProfile } from "@/utils/requireProfile";
+import { redirect } from "next/navigation";
 
 export default async function allPostsPage() {
   await requireProfile();
 
   const { rows: posts } = await db.query(`SELECT * FROM week9posts`);
+
+  if (!posts || posts.length === 0) {
+    redirect("/not-found");
+  }
 
   const { rows: userRows } = await db.query(
     `SELECT clerk_user_id, username FROM week9users`,

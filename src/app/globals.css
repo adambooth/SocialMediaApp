@@ -157,3 +157,13 @@ li {
 .post-creator {
   font-size: 20px;
 }
+
+.error-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  font-size: 3em;
+  text-align: center;
+  color: rgb(119, 4, 4);
+}

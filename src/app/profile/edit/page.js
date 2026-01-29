@@ -50,7 +50,7 @@ export default async function EditProfilePage() {
               className="edit-post-input"
             />
 
-            <label>Content : </label>
+            <label>Bio : </label>
             <textarea name="content" required maxLength="50" />
 
             <button className="submit-button" type="submit">

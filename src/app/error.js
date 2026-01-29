@@ -3,7 +3,9 @@
 export default function errorPage() {
   return (
     <>
-      <h1>Error Page</h1>
+      <div className="error-page">
+        <h1>404 Error Page Not Found</h1>
+      </div>
     </>
   );
 }
