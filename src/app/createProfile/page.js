@@ -47,7 +47,7 @@ export default async function CreateProfilePage() {
               <input
                 id="username"
                 name="username"
-                placeholder="Letters Only"
+                placeholder="Letters Only No Spaces"
                 required
                 pattern="[A-Za-z]+"
                 title="Username must contain only letters"

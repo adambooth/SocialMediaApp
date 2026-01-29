@@ -1,20 +1,11 @@
-.specific-post-container {
+.main-bodys {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 90%;
-  width: 90%;
-  margin: 20px auto;
-  border-radius: 20px;
-  padding: 20px;
 }
 
-.specific-post-title {
-  font-size: 40px;
-}
-
-.main-post-container {
+.edit-specifc-post-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,17 +18,7 @@
   padding: 20px;
 }
 
-.comments-conatiner {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 90%;
-  width: 90%;
-  margin: 20px auto;
-}
-
-.comment-template {
+.specific-form-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,7 +31,14 @@
   padding: 20px;
 }
 
-.edit-post-button {
+.specific-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.specific-submit-button {
   width: 60%;
   height: 100%;
   font-size: 20px;

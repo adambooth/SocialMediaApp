@@ -2,6 +2,7 @@ import { requireProfilePostMatch } from "@/utils/requireProfilePostMatch";
 import { db } from "@/utils/.dbConnection";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import "./editPostPage.css";
 
 export default async function editPostPage({ params }) {
   await requireProfilePostMatch({ params });
@@ -9,11 +10,12 @@ export default async function editPostPage({ params }) {
 
   return (
     <>
-      <div classcontent="edit-post-container">
-        <div classcontent="form-wrapper">
+      <div className="edit-specifc-post-container">
+        <div className="specific-form-wrapper">
           <h1>Edit Post</h1>
 
           <form
+            className="specific-form"
             action={async (formData) => {
               "use server";
 
@@ -30,9 +32,9 @@ export default async function editPostPage({ params }) {
             }}
           >
             <label>Content :</label>
-            <input type="text" name="content" required />
+            <textarea type="text" name="content" required />
 
-            <button className="submit-button" type="submit">
+            <button className="specific-submit-button" type="submit">
               Save
             </button>
           </form>

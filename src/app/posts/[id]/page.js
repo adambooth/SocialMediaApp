@@ -39,7 +39,7 @@ export default async function specificPostPage({ params }) {
               <h1 className="post-desc">Description : {post.content}</h1>
               {post.clerk_user_id === userId ? (
                 <Link href={`/posts/editPost/${post.id}`}>
-                  <button>Edit Post</button>
+                  <button className="edit-post-button">Edit Post</button>
                 </Link>
               ) : (
                 <p></p>

@@ -46,7 +46,7 @@ export default async function EditProfilePage() {
               required
               pattern="[A-Za-z]+"
               title="Username must contain only letters"
-              placeholder="Letters Only"
+              placeholder="Letters Only No Spaces"
               className="edit-post-input"
             />
 

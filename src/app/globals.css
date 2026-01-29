@@ -74,3 +74,11 @@ label {
   font-size: 1.2rem;
   padding: 0.5rem;
 }
+
+label,
+textarea,
+input {
+  padding: 20px;
+  border-radius: 20px;
+  border: none;
+}
