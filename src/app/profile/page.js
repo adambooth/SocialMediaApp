@@ -24,10 +24,6 @@ export default async function profilePage() {
     [post.clerk_user_id],
   );
 
-  if (!posts || posts.length === 0) {
-    redirect("/not-found");
-  }
-
   const { rows: userRows } = await db.query(
     `SELECT clerk_user_id, username FROM week9users`,
   );
@@ -48,7 +44,7 @@ export default async function profilePage() {
         </Link>
       </div>
       <div className="posts-container">
-        <h1 className="all-posts-title">Posts Page</h1>
+        <h1 className="all-posts-title">Posts</h1>
         <div className="all--posts-container">
           {posts.map((post) => {
             const username = userMap[post.clerk_user_id] || "Unknown";

@@ -28,6 +28,19 @@
   gap: 20px;
 }
 
+.footer-auth-buttons-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.FooterComponent {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
+  background-color: rgb(19, 156, 202);
+}
+
 .auth-button {
   padding: 10px;
   background-color: lightblue;

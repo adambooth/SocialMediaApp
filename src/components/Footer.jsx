@@ -9,9 +9,8 @@ import {
 export default function Footer() {
   return (
     <>
-      <div className="HeaderComponent">
-        <h1>Social Media App</h1>
-        <div className="auth-buttons-container">
+      <div className="FooterComponent">
+        <div className="footer-auth-buttons-container">
           <SignedOut>
             <SignInButton className="auth-button" />
             <SignUpButton className="auth-button" />
