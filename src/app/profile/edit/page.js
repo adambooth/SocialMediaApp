@@ -33,7 +33,12 @@ export default async function EditProfilePage() {
                 [updatedNamed, updatedcontent, userId],
               );
 
-              console.log("Rows updated:", result.rowCount);
+              const resultComments = await db.query(
+                `UPDATE week9comments
+                SET username = $1
+                WHERE clerk_user_id = $2`,
+                [updatedNamed, userId],
+              );
 
               revalidatePath(`/profile`);
               redirect(`/profile`);
