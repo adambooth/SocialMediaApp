@@ -31,12 +31,36 @@ export default async function specificPostPage({ params }) {
     [post.id],
   );
 
+  const { rows: comments } = await db.query(
+    `SELECT * FROM week9comments WHERE post_id = $1`,
+    [id],
+  );
+
+  const { rows: username } = await db.query(
+    `SELECT username FROM week9users WHERE clerk_user_id = $1`,
+    [userId],
+  );
+
+  async function handleSubmitComment(formData) {
+    "use server";
+
+    const content = formData.get("content");
+
+    await db.query(
+      `INSERT INTO week9comments (post_id, clerk_user_id, content, username) VALUES ($1, $2, $3, $4)`,
+      [id, userId, content, username[0].username],
+    );
+
+    revalidatePath(`/posts/${post.id}`);
+
+    redirect(`/posts/${post.id}`);
+  }
+
   async function handleDelete() {
     "use server";
 
     await db.query(`DELETE FROM week9posts WHERE id = $1`, [id]);
 
-    console.log("Post Removed");
     revalidatePath(`/posts`);
     redirect("/posts");
   }
@@ -46,14 +70,10 @@ export default async function specificPostPage({ params }) {
     [userId, post.id],
   );
 
-  console.log(post);
-  console.log(userId);
-
   const handleLike = async () => {
     "use server";
 
     if (existingLike.length > 0) {
-      console.log("Already Liked This Post!");
       return;
     }
 
@@ -70,7 +90,6 @@ export default async function specificPostPage({ params }) {
       [userId, post.id],
     );
 
-    console.log("Liked Post!");
     revalidatePath(`/posts/${post.id}`);
     redirect(`/posts/${post.id}`);
   };
@@ -81,7 +100,6 @@ export default async function specificPostPage({ params }) {
     "use server";
 
     if (existingLike.length === 0) {
-      console.log("You already dont like the post!");
       return;
     }
 
@@ -95,7 +113,6 @@ export default async function specificPostPage({ params }) {
       [userId, post.id],
     );
 
-    console.log("Unliked");
     revalidatePath(`/posts/${post.id}`);
   }
 
@@ -145,35 +162,31 @@ export default async function specificPostPage({ params }) {
           </div>
         </div>
         <div className="comments-conatiner">
-          <div className="comment-template">
-            <p>Comment</p>
-            <p>Comment</p>
-            <p>Comment</p>
-            <p>Comment</p>
-            <p>Comment</p>
-          </div>
-          <div className="comment-template">
-            <p>Comment</p>
-            <p>Comment</p>
-            <p>Comment</p>
-            <p>Comment</p>
-            <p>Comment</p>
-          </div>
-          <div className="comment-template">
-            <p>Comment</p>
-            <p>Comment</p>
-            <p>Comment</p>
-            <p>Comment</p>
-            <p>Comment</p>
-          </div>
-          <div className="comment-template">
-            <p>Comment</p>
-            <p>Comment</p>
-            <p>Comment</p>
-            <p>Comment</p>
-            <p>Comment</p>
-          </div>
+          {comments.map((comment) => {
+            return (
+              <div key={comment.comment_id} className="comment-template">
+                <h2>Username : {comment.username}</h2>
+                <p>Comment : {comment.content}</p>
+              </div>
+            );
+          })}
         </div>
+        <form action={handleSubmitComment} className="comments-form-contents">
+          <div className="comments-form-groups">
+            <label htmlFor="comments-content">Content:</label>
+            <textarea
+              id="content"
+              name="content"
+              placeholder="Tell us about yourself"
+              required
+              maxLength="50"
+            />
+          </div>
+
+          <button type="submit" className="comments-submit-buttons">
+            Submit Comment
+          </button>
+        </form>
       </div>
     </>
   );
