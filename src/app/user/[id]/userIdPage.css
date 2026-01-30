@@ -11,7 +11,7 @@
 }
 
 .specific-user-profile-name {
-  font-size: 40px;
+  font-size: 4vh;
 }
 
 .specific-user-details {
@@ -32,11 +32,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 90%;
+  height: 500px;
   width: 90%;
   margin: 20px auto;
   border-radius: 20px;
   padding: 20px;
+  overflow-y: auto;
+}
+
+.specific-post-content-container {
+  overflow-y: auto;
+  height: 150px;
 }
 
 .specific-user-post {

@@ -162,6 +162,7 @@ export default async function specificPostPage({ params }) {
           </div>
         </div>
         <div className="comments-conatiner">
+          <h1>Comments</h1>
           {comments.map((comment) => {
             return (
               <div key={comment.comment_id} className="comment-template">

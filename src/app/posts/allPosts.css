@@ -9,7 +9,7 @@
 }
 
 .all-posts-title {
-  font-size: 40px;
+  font-size: 4vh;
   margin: 20px;
 }
 
@@ -64,13 +64,21 @@
   border: none;
 }
 
+ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 li {
-  font-size: 20px;
+  font-size: 2vh;
+  width: 60%;
 }
 
 .post-desc,
 .post-creator {
-  font-size: 20px;
+  font-size: 2vh;
 }
 
 .view-post-container {
@@ -78,4 +86,13 @@ li {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 600px) {
+  .post-template {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }

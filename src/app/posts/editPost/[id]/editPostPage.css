@@ -41,7 +41,7 @@
 .specific-submit-button {
   width: 60%;
   height: 100%;
-  font-size: 20px;
+  font-size: 2vh;
   padding: 0.5rem;
   background-color: lightblue;
   border-radius: 20px;

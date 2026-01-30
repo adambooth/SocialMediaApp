@@ -14,19 +14,19 @@
 .profile-title {
   padding: 10px;
   border-radius: 20px;
-  font-size: 30px;
+  font-size: 3vh;
 }
 
 .profile-name {
   padding: 10px;
   border-radius: 20px;
-  font-size: 20px;
+  font-size: 2vh;
 }
 
 .profile-bio {
   padding: 10px;
   border-radius: 20px;
-  font-size: 20px;
+  font-size: 2vh;
 }
 
 .edit-profile-btn {
@@ -34,6 +34,6 @@
   background-color: lightblue;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 30px;
+  font-size: 3vh;
   border: none;
 }

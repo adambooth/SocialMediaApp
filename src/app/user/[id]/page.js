@@ -109,7 +109,7 @@ export default async function UserPage({ params }) {
         ) : (
           posts.map((post) => (
             <div key={post.id} className="specific-user-post">
-              <div>
+              <div className="specific-post-content-container">
                 <p>{post.content}</p>
               </div>
               <div className="view-post-container">
