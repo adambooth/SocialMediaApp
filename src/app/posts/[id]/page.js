@@ -5,6 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import TextAnimation from "@/components/EnterAnimation";
 
 export default async function specificPostPage({ params }) {
   await requireProfile();
@@ -121,31 +122,33 @@ export default async function specificPostPage({ params }) {
       <div className="specific-post-container">
         <h1 className="specific-post-title">Post Details</h1>
         <div className="main-post-container">
-          {alreadyLikesPost ? (
-            <button className="like-btn" onClick={handleUnLike}>
-              <img
-                width="50"
-                height="50"
-                src="https://img.icons8.com/ios/50/thumbs-down.png"
-                alt="thumbs-down"
-              />
-              <span className="tooltip">
-                Unlike this post <p>Likes : {likes.length}</p>
-              </span>
-            </button>
-          ) : (
-            <button className="like-btn" onClick={handleLike}>
-              <img
-                width="50"
-                height="50"
-                src="https://img.icons8.com/ios/50/facebook-like--v1.png"
-                alt="facebook-like--v1"
-              />
-              <span className="tooltip">
-                Like this post <p>Likes : {likes.length}</p>
-              </span>
-            </button>
-          )}
+          <TextAnimation>
+            {alreadyLikesPost ? (
+              <button className="like-btn" onClick={handleUnLike}>
+                <img
+                  width="50"
+                  height="50"
+                  src="https://img.icons8.com/ios/50/thumbs-down.png"
+                  alt="thumbs-down"
+                />
+                <span className="tooltip">
+                  Unlike this post <p>Likes : {likes.length}</p>
+                </span>
+              </button>
+            ) : (
+              <button className="like-btn" onClick={handleLike}>
+                <img
+                  width="50"
+                  height="50"
+                  src="https://img.icons8.com/ios/50/facebook-like--v1.png"
+                  alt="facebook-like--v1"
+                />
+                <span className="tooltip">
+                  Like this post <p>Likes : {likes.length}</p>
+                </span>
+              </button>
+            )}
+          </TextAnimation>
           <div className="specific-post-details-container">
             {" "}
             <div className="specific-post-content">
