@@ -6,6 +6,8 @@ import {
   SignUpButton,
 } from "@clerk/nextjs";
 
+import TextAnimation from "./EnterAnimation";
+
 import Link from "next/link";
 
 export default function Header() {
@@ -13,7 +15,9 @@ export default function Header() {
     <>
       <div className="HeaderComponent">
         <Link href={"/posts"}>
-          <h1>Social Media App</h1>
+          <TextAnimation>
+            <h1>Social Media App</h1>
+          </TextAnimation>
         </Link>
         <div className="auth-buttons-container">
           <SignedOut>

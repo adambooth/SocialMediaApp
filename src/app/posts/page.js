@@ -4,6 +4,7 @@ import "./allPosts.css";
 import { requireProfile } from "@/utils/requireProfile";
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
+import TextAnimation from "@/components/EnterAnimation";
 
 export default async function allPostsPage() {
   await requireProfile();
@@ -33,17 +34,19 @@ export default async function allPostsPage() {
             const username = userMap[post.clerk_user_id] || "Unknown";
             return (
               <div key={post.id} className="post-template">
-                <div className="post-details-container">
-                  <Link href={`/user/${username}`}>
-                    <p className="post-creator">Creator: {username}</p>
-                  </Link>
-                  <p className="post-desc">Description: {post.content}</p>
-                </div>
-                <div className="view-post-container">
-                  <Link href={`/posts/${post.id}`}>
-                    <button className="view-post-btn">View Post</button>
-                  </Link>
-                </div>
+                <TextAnimation>
+                  <div className="post-details-container">
+                    <Link href={`/user/${username}`}>
+                      <p className="post-creator">Creator: {username}</p>
+                    </Link>
+                    <p className="post-desc">Description: {post.content}</p>
+                  </div>
+                  <div className="view-post-container">
+                    <Link href={`/posts/${post.id}`}>
+                      <button className="view-post-btn">View Post</button>
+                    </Link>
+                  </div>
+                </TextAnimation>
               </div>
             );
           })}
