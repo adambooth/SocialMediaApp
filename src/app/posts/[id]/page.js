@@ -140,7 +140,7 @@ export default async function specificPostPage({ params }) {
               />
             </button>
           )}
-          <div className="post-details-container">
+          <div className="specific-post-details-container">
             {" "}
             <div className="specific-post-content">
               <h1>Name : {user.username}</h1>

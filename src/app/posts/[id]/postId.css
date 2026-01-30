@@ -27,6 +27,11 @@
   padding: 20px;
 }
 
+.specific-post-details-container {
+  overflow-y: auto;
+  height: 150px;
+}
+
 .comments-conatiner {
   display: flex;
   flex-direction: column;
@@ -98,9 +103,10 @@
   margin: 20px;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .main-post-container {
     display: flex;
     flex-direction: column;
+    font-size: 1vh;
   }
 }
