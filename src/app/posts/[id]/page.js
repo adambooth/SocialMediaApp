@@ -129,6 +129,7 @@ export default async function specificPostPage({ params }) {
                 src="https://img.icons8.com/ios/50/thumbs-down.png"
                 alt="thumbs-down"
               />
+              <span className="tooltip">Unlike this post</span>
             </button>
           ) : (
             <button className="like-btn" onClick={handleLike}>
@@ -138,6 +139,7 @@ export default async function specificPostPage({ params }) {
                 src="https://img.icons8.com/ios/50/facebook-like--v1.png"
                 alt="facebook-like--v1"
               />
+              <span className="tooltip">Like this post</span>
             </button>
           )}
           <div className="specific-post-details-container">

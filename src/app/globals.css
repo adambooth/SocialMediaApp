@@ -200,3 +200,8 @@ li {
   overflow-y: auto;
   height: 150px;
 }
+
+a:hover,
+button:hover {
+  opacity: 0.4;
+}

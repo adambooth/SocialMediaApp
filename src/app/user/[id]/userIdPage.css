@@ -32,7 +32,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 500px;
+  height: fit-content;
   width: 90%;
   margin: 20px auto;
   border-radius: 20px;
@@ -56,4 +56,12 @@
   background-color: rgb(19, 156, 202);
   border-radius: 20px;
   padding: 20px;
+}
+
+.follow-btn {
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  margin: 20px;
+  background-color: #add8e6;
 }

@@ -97,9 +97,13 @@ export default async function UserPage({ params }) {
         {isOwnProfile ? (
           <br />
         ) : alreadyFollowing ? (
-          <button onClick={handleUnfollow}>UnFollow</button>
+          <button className="follow-btn" onClick={handleUnfollow}>
+            UnFollow
+          </button>
         ) : (
-          <button onClick={handleFollow}>Follow</button>
+          <button className="follow-btn" onClick={handleFollow}>
+            Follow
+          </button>
         )}
       </div>
       <h2 className="specific-user-profile-name">Posts</h2>
