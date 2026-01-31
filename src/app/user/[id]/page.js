@@ -12,88 +12,84 @@ export default async function UserPage({ params }) {
 
   const { id: profileId } = await params;
 
-  const { rows: users } = await db.query(
-    "SELECT clerk_user_id FROM week9users WHERE username = $1",
-    [profileId],
-  );
-
-  const { rows: bio } = await db.query(
-    "SELECT bio FROM week9users WHERE username = $1",
-    [profileId],
-  );
-
-  if (users.length === 0) {
-    notFound();
-  }
-
-  const { rows: posts } = await db.query(
-    "SELECT * FROM week9posts WHERE clerk_user_id = $1",
-    [users[0].clerk_user_id],
-  );
-
-  const { rows: profileUser } = await db.query(
+  const { rows: profileUsers } = await db.query(
     "SELECT * FROM week9users WHERE username = $1",
     [profileId],
   );
 
+  if (profileUsers.length === 0) {
+    notFound();
+  }
+
+  const profileUser = profileUsers[0];
+
+  const { rows: posts } = await db.query(
+    "SELECT * FROM week9posts WHERE clerk_user_id = $1",
+    [profileUser.clerk_user_id],
+  );
+
   const { rows: existingFollow } = await db.query(
     "SELECT * FROM week9followers WHERE follower_id = $1 AND following_id = $2",
-    [userId, profileUser[0].clerk_user_id],
+    [userId, profileUser.clerk_user_id],
   );
 
   async function handleFollow() {
     "use server";
 
     if (existingFollow.length > 0) {
-      console.log("Already following this user!");
       return;
     }
 
     await db.query(
-      `INSERT INTO week9followers (follower_id, following_id) VALUES ($1, $2)`,
-      [userId, profileUser[0].clerk_user_id],
+      `INSERT INTO week9followers (follower_id, following_id)
+       VALUES ($1, $2)`,
+      [userId, profileUser.clerk_user_id],
     );
 
     await db.query(
-      `UPDATE week9users SET follower_count = follower_count + 1 WHERE clerk_user_id = $1 RETURNING *`,
-      [profileUser[0].clerk_user_id],
+      `UPDATE week9users
+       SET follower_count = follower_count + 1
+       WHERE clerk_user_id = $1`,
+      [profileUser.clerk_user_id],
     );
 
-    console.log("Followed");
     revalidatePath(`/user/${profileId}`);
   }
-
-  const isOwnProfile = userId === profileUser[0].clerk_user_id;
-  const alreadyFollowing = existingFollow.length > 0;
 
   async function handleUnfollow() {
     "use server";
 
     if (existingFollow.length === 0) {
-      console.log("You are not following this user!");
       return;
     }
 
     await db.query(
-      `DELETE FROM week9followers WHERE follower_id = $1 AND following_id = $2`,
-      [userId, profileUser[0].clerk_user_id],
+      `DELETE FROM week9followers
+       WHERE follower_id = $1 AND following_id = $2`,
+      [userId, profileUser.clerk_user_id],
     );
 
     await db.query(
-      `UPDATE week9users SET follower_count = follower_count - 1 WHERE clerk_user_id = $1 RETURNING *`,
-      [profileUser[0].clerk_user_id],
+      `UPDATE week9users
+       SET follower_count = follower_count - 1
+       WHERE clerk_user_id = $1`,
+      [profileUser.clerk_user_id],
     );
 
-    console.log("Unfollowed");
     revalidatePath(`/user/${profileId}`);
   }
+
+  const isOwnProfile = userId === profileUser.clerk_user_id;
+  const alreadyFollowing = existingFollow.length > 0;
 
   return (
     <div className="specific-user-container">
       <h1 className="specific-user-profile-name">{profileId}'s Profile</h1>
+
       <div className="specific-user-details">
-        <h1>Bio : {bio[0].bio}</h1>
-        <h2>Followers : {profileUser[0].follower_count}</h2>
+        <h1>Bio : {profileUser.bio}</h1>
+        <h2>Followers : {profileUser.follower_count}</h2>
+
         {isOwnProfile ? (
           <br />
         ) : alreadyFollowing ? (
@@ -106,7 +102,9 @@ export default async function UserPage({ params }) {
           </button>
         )}
       </div>
+
       <h2 className="specific-user-profile-name">Posts</h2>
+
       <div className="specific-user-posts">
         {posts.length === 0 ? (
           <p>No posts yet.</p>

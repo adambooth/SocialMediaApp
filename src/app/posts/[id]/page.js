@@ -12,32 +12,35 @@ export default async function specificPostPage({ params }) {
 
   const { id } = await params;
 
-  const { rows } = await db.query(`SELECT * FROM week9posts WHERE id = $1`, [
-    id,
-  ]);
+  const { rows: postRows } = await db.query(
+    `SELECT * FROM week9posts WHERE id = $1`,
+    [id],
+  );
 
-  const post = rows[0];
+  const post = postRows[0];
 
-  const userResult = await db.query(
+  const { rows: postUserRows } = await db.query(
     `SELECT username FROM week9users WHERE clerk_user_id = $1`,
     [post.clerk_user_id],
   );
 
-  const user = userResult.rows[0];
+  const user = postUserRows[0];
 
   const { userId } = await auth();
 
   const { rows: likes } = await db.query(
-    "SELECT * FROM week9likes WHERE post_id = $1",
+    `SELECT * FROM week9likes WHERE post_id = $1`,
     [post.id],
   );
+
+  const alreadyLikesPost = likes.some((like) => like.clerk_user_id === userId);
 
   const { rows: comments } = await db.query(
     `SELECT * FROM week9comments WHERE post_id = $1`,
     [id],
   );
 
-  const { rows: username } = await db.query(
+  const { rows: usernameRows } = await db.query(
     `SELECT username FROM week9users WHERE clerk_user_id = $1`,
     [userId],
   );
@@ -48,12 +51,13 @@ export default async function specificPostPage({ params }) {
     const content = formData.get("content");
 
     await db.query(
-      `INSERT INTO week9comments (post_id, clerk_user_id, content, username) VALUES ($1, $2, $3, $4)`,
-      [id, userId, content, username[0].username],
+      `INSERT INTO week9comments 
+       (post_id, clerk_user_id, content, username) 
+       VALUES ($1, $2, $3, $4)`,
+      [id, userId, content, usernameRows[0].username],
     );
 
     revalidatePath(`/posts/${post.id}`);
-
     redirect(`/posts/${post.id}`);
   }
 
@@ -66,17 +70,10 @@ export default async function specificPostPage({ params }) {
     redirect("/posts");
   }
 
-  const { rows: existingLike } = await db.query(
-    "SELECT * FROM week9likes WHERE clerk_user_id = $1 AND post_id = $2",
-    [userId, post.id],
-  );
-
-  const handleLike = async () => {
+  async function handleLike() {
     "use server";
 
-    if (existingLike.length > 0) {
-      return;
-    }
+    if (alreadyLikesPost) return;
 
     await db.query(
       `INSERT INTO week9likes (clerk_user_id, post_id) VALUES ($1, $2)`,
@@ -85,32 +82,30 @@ export default async function specificPostPage({ params }) {
 
     await db.query(
       `UPDATE week9likes 
-   SET like_amount = like_amount + 1 
-   WHERE clerk_user_id = $1 AND post_id = $2 
-   RETURNING *`,
+       SET like_amount = like_amount + 1 
+       WHERE clerk_user_id = $1 AND post_id = $2`,
       [userId, post.id],
     );
 
     revalidatePath(`/posts/${post.id}`);
     redirect(`/posts/${post.id}`);
-  };
-
-  const alreadyLikesPost = existingLike.length > 0;
+  }
 
   async function handleUnLike() {
     "use server";
 
-    if (existingLike.length === 0) {
-      return;
-    }
+    if (!alreadyLikesPost) return;
 
     await db.query(
-      `DELETE FROM week9likes WHERE clerk_user_id = $1 AND post_id = $2`,
+      `DELETE FROM week9likes 
+       WHERE clerk_user_id = $1 AND post_id = $2`,
       [userId, post.id],
     );
 
     await db.query(
-      `UPDATE week9likes SET like_amount = like_amount - 1 WHERE clerk_user_id = $1 AND post_id = $2 RETURNING *`,
+      `UPDATE week9likes 
+       SET like_amount = like_amount - 1 
+       WHERE clerk_user_id = $1 AND post_id = $2`,
       [userId, post.id],
     );
 
@@ -121,6 +116,7 @@ export default async function specificPostPage({ params }) {
     <>
       <div className="specific-post-container">
         <h1 className="specific-post-title">Post Details</h1>
+
         <div className="main-post-container">
           <TextAnimation>
             {alreadyLikesPost ? (
@@ -149,13 +145,14 @@ export default async function specificPostPage({ params }) {
               </button>
             )}
           </TextAnimation>
+
           <div className="specific-post-details-container">
-            {" "}
             <div className="specific-post-content">
               <h1>Name : {user.username}</h1>
               <h1 className="post-desc">Description : {post.content}</h1>
               <h1 className="post-desc">Likes : {likes.length}</h1>
-              {post.clerk_user_id === userId ? (
+
+              {post.clerk_user_id === userId && (
                 <div className="post-edit-delete-btn-conatiner">
                   <Link href={`/posts/editPost/${post.id}`}>
                     <button className="edit-post-button">Edit Post</button>
@@ -164,23 +161,21 @@ export default async function specificPostPage({ params }) {
                     Delete Post
                   </button>
                 </div>
-              ) : (
-                <p></p>
               )}
             </div>
           </div>
         </div>
+
         <div className="comments-conatiner">
           <h1>Comments</h1>
-          {comments.map((comment) => {
-            return (
-              <div key={comment.comment_id} className="comment-template">
-                <h2>Username : {comment.username}</h2>
-                <p>Comment : {comment.content}</p>
-              </div>
-            );
-          })}
+          {comments.map((comment) => (
+            <div key={comment.comment_id} className="comment-template">
+              <h2>Username : {comment.username}</h2>
+              <p>Comment : {comment.content}</p>
+            </div>
+          ))}
         </div>
+
         <form action={handleSubmitComment} className="comments-form-contents">
           <div className="comments-form-groups">
             <label htmlFor="comments-content">Content:</label>
